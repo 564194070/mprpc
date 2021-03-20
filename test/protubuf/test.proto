@@ -1,0 +1,55 @@
+syntax = "proto3";  //声明了protobuf的版本
+
+package XATU;   //声明了代码所在的包，对于C++来说是namespace
+
+
+message ResultCode
+{
+    int32 errcode = 1;
+    bytes errmsg = 2;
+
+}
+
+
+//储存数据 列表 映射表
+//定义登录请求消息类型
+message LoginRequest
+{
+    string name = 1;
+    //使用字节 节省额编码转换的时间 提升效率  
+    bytes pwd = 2;
+    ResultCode ret = 3;
+
+}
+
+//定义登录响应消息类型
+message LoginResponse
+{
+    int32 errcode = 1;
+    string errmsg = 2;
+    bool success = 3;
+}
+
+message GetFriendListRequest
+{
+    uint32 userid = 1;
+}
+message GetFriendListResponse
+{
+    int32 errcode = 1;
+    bytes errmsg = 2;
+    //定义了一个列表类型
+    repeated User friend_list = 3;
+}
+
+message User
+{
+    bytes name = 1;
+    uint32 age = 2;
+    enum Sex
+    {
+        MAN = 0;
+        WOMAN = 1;
+    }
+    Sex sex = 3;
+}
